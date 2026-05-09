@@ -41,9 +41,11 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex gap-4">
-                <Button size="lg" className="button-primary">
-                  Hemen Deneyin
-                </Button>
+                <Link href="/radar">
+                  <Button size="lg" className="button-primary">
+                    Radar Görüntüle
+                  </Button>
+                </Link>
                 <Button size="lg" variant="outline">
                   Daha Fazla Bilgi
                 </Button>
