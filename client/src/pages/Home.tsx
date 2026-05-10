@@ -22,7 +22,9 @@ export default function Home() {
             <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Hakkında
             </Link>
-            <Button className="button-primary">Başla</Button>
+            <Link href="/radar">
+              <Button className="button-primary">Başla</Button>
+            </Link>
           </div>
         </div>
       </nav>
@@ -178,9 +180,11 @@ export default function Home() {
           <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
             Şimdi 3D harita oluşturmaya başlayın. Ücretsiz, açık kaynaklı ve sınırsız kullanım.
           </p>
-          <Button size="lg" className="bg-white text-primary hover:bg-white/90">
-            Uygulamayı Aç
-          </Button>
+          <Link href="/radar">
+            <Button size="lg" className="bg-white text-primary hover:bg-white/90">
+              Uygulamayı Aç
+            </Button>
+          </Link>
         </div>
       </section>
 
