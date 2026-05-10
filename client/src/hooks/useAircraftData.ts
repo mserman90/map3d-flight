@@ -65,8 +65,9 @@ interface ADSBExchangeResponse {
   }>;
 }
 
-const ADSB_LOL_URL = 'https://api.adsb.lol/api/0/receiver';
-const ADSBEXCHANGE_URL = 'https://api.adsbexchange.com/v2/json';
+// Backend proxy URLs
+const ADSB_LOL_PROXY = '/api/aircraft/adsb-lol';
+const ADSBEXCHANGE_PROXY = '/api/aircraft/adsbexchange';
 
 export const useAircraftData = (
   bounds?: { north: number; south: number; east: number; west: number },
@@ -79,8 +80,8 @@ export const useAircraftData = (
 
   const fetchFromADSBLol = useCallback(async () => {
     try {
-      // ADSB.lol API - tüm uçakları döndürür
-      const response = await axios.get<ADSBLolResponse>(ADSB_LOL_URL, {
+      // Backend proxy'yi kullan
+      const response = await axios.get<ADSBLolResponse>(ADSB_LOL_PROXY, {
         timeout: 10000,
       });
 
@@ -129,7 +130,7 @@ export const useAircraftData = (
 
   const fetchFromADSBExchange = useCallback(async () => {
     try {
-      // ADSBExchange API
+      // Backend proxy'yi kullan
       const params: Record<string, any> = {};
 
       if (bounds) {
@@ -139,7 +140,7 @@ export const useAircraftData = (
         params.lomax = bounds.east;
       }
 
-      const response = await axios.get<ADSBExchangeResponse>(ADSBEXCHANGE_URL, {
+      const response = await axios.get<ADSBExchangeResponse>(ADSBEXCHANGE_PROXY, {
         params,
         timeout: 10000,
       });
