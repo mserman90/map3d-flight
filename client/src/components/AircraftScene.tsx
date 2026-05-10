@@ -4,6 +4,7 @@ import { OrbitControls, PerspectiveCamera, Text } from '@react-three/drei';
 import * as THREE from 'three';
 import { useAircraftData, Aircraft } from '@/hooks/useAircraftData';
 import { useAircraftStore } from '@/stores/aircraftStore';
+import { GLTFAircraft } from './GLTFAircraft';
 
 interface AircraftSceneProps {
   bounds?: { north: number; south: number; east: number; west: number };
@@ -158,7 +159,7 @@ const AircraftSceneContent: React.FC<AircraftSceneProps> = ({ bounds, center, zo
 
         return (
           <group key={plane.icao}>
-            <AircraftModel
+            <GLTFAircraft
               aircraft={plane}
               selected={selectedAircraft?.icao === plane.icao}
             />
@@ -167,7 +168,7 @@ const AircraftSceneContent: React.FC<AircraftSceneProps> = ({ bounds, center, zo
               position={[x, y, z]}
               onClick={() => setSelectedAircraft(plane)}
             >
-              <sphereGeometry args={[1, 8, 8]} />
+              <sphereGeometry args={[1.5, 8, 8]} />
               <meshStandardMaterial transparent opacity={0} />
             </mesh>
           </group>
