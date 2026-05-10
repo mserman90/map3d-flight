@@ -3,9 +3,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AircraftScene } from '@/components/AircraftScene';
 import { AircraftInfo } from '@/components/AircraftInfo';
+import { MapSelector } from '@/components/MapSelector';
 import { useAircraftStore } from '@/stores/aircraftStore';
 import { Link } from 'wouter';
-import { MapPin, Plane, Eye, EyeOff, RotateCcw } from 'lucide-react';
+import { MapPin, Plane, Eye, EyeOff, RotateCcw, Map } from 'lucide-react';
 
 export default function Radar() {
   const { selectedAircraft, setSelectedAircraft, showTrails, setShowTrails, clearTrails } =
@@ -47,15 +48,33 @@ export default function Radar() {
       </nav>
 
       {/* Main Content */}
-      <div className="flex-1 relative">
-        {/* 3D Scene */}
-        <div className="w-full h-full">
-          <AircraftScene bounds={bounds || undefined} />
+      <div className="flex-1 flex gap-4 p-4 bg-muted/20">
+        {/* Left Panel - Map Selector */}
+        <div className="w-96 flex flex-col gap-4 overflow-y-auto">
+          <Card className="shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Map className="w-5 h-5 text-accent" />
+                Alan Seçimi
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <MapSelector
+                onBoundsChange={(newBounds) => setBounds(newBounds)}
+              />
+            </CardContent>
+          </Card>
         </div>
 
-        {/* Control Panel */}
-        <div className="absolute top-4 right-4 z-40">
-          <Card className="w-64 shadow-xl">
+        {/* Right Panel - 3D Scene */}
+        <div className="flex-1 relative">
+          <div className="w-full h-full">
+            <AircraftScene bounds={bounds || undefined} />
+          </div>
+
+          {/* Control Panel */}
+          <div className="absolute top-4 right-4 z-40">
+            <Card className="w-64 shadow-xl">
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center gap-2">
                 <Plane className="w-5 h-5 text-accent" />
@@ -113,18 +132,18 @@ export default function Radar() {
                 </p>
               </div>
             </CardContent>
-          </Card>
-        </div>
+            </Card>
+          </div>
 
-        {/* Aircraft Info Panel */}
-        <AircraftInfo
-          aircraft={selectedAircraft}
-          onClose={() => setSelectedAircraft(null)}
-        />
+          {/* Aircraft Info Panel */}
+          <AircraftInfo
+            aircraft={selectedAircraft}
+            onClose={() => setSelectedAircraft(null)}
+          />
 
-        {/* Legend */}
-        <div className="absolute bottom-4 left-4 z-40">
-          <Card className="w-48 shadow-xl">
+          {/* Legend */}
+          <div className="absolute bottom-4 left-4 z-40">
+            <Card className="w-48 shadow-xl">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm">Açıklamalar</CardTitle>
             </CardHeader>
@@ -142,7 +161,8 @@ export default function Radar() {
                 <span>Uçuş İzi</span>
               </div>
             </CardContent>
-          </Card>
+            </Card>
+          </div>
         </div>
       </div>
     </div>
